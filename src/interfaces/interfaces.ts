@@ -24,3 +24,10 @@ export interface Car {
   createdAt: string; // Timestamp for when the car was created
   updatedAt: string; // Timestamp for when the car was last updated
 }
+
+export interface User {
+  username: string;
+  email: string;
+  role: "user" | "admin"; // Enumerated roles
+  hashedPassword: string;
+}
