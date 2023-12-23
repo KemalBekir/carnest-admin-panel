@@ -3,6 +3,8 @@ import Hero from "./components/Hero/Hero";
 import { Route, Routes } from "react-router";
 import Navbar from "./components/Navbar/Navbar";
 import Table from "./components/Table/Table";
+import Login from "./components/Login/Login";
+import Register from "./components/Register/Register";
 
 const mockData = [
   { userId: 1, username: "JohnDoe", email: "john@example.com", age: 30 },
@@ -38,6 +40,8 @@ export default function App() {
           <Hero />
           <Routes>
             <Route path="/dashboard" element={<Table data={mockData} />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
           </Routes>
         </div>
       </div>

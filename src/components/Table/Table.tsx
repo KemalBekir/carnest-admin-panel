@@ -16,8 +16,8 @@ const Table: React.FC<TableProps> = ({ data }) => {
   };
 
   return (
-    <div className="m-4">
-      <table className="min-w-full divide-y divide-gray-200 p-4 border border-slate-300 rounded-lg w-auto max-w-screen">
+    <div className="m-4 ">
+      <table className="min-w-full divide-y divide-gray-200 p-4 border border-slate-300 rounded-lg">
         <thead className="bg-gray-50">
           <tr>
             {columns.map((column, index) => (
