@@ -5,7 +5,6 @@ interface TableProps {
 }
 
 const Table: React.FC<TableProps> = ({ data }) => {
-  const columns = data.length > 0 ? Object.keys(data[0]) : [];
   const [selectedRows, setSelectedRows] = useState<Record<number, boolean>>({});
 
   const handleCheckboxChange = (rowIndex: number) => {
@@ -15,8 +14,10 @@ const Table: React.FC<TableProps> = ({ data }) => {
     });
   };
 
+  const columns = data.length > 0 ? Object.keys(data[0]) : [];
+
   return (
-    <div className="m-4 ">
+    <div className="m-4">
       <table className="min-w-full divide-y divide-gray-200 p-4 border border-slate-300 rounded-lg">
         <thead className="bg-gray-50">
           <tr>
@@ -28,7 +29,7 @@ const Table: React.FC<TableProps> = ({ data }) => {
                 {column}
               </th>
             ))}
-            <th></th> {/* Empty cell for the checkbox column */}
+            <th></th>
           </tr>
         </thead>
         <tbody className="bg-white divide-y divide-gray-200">
@@ -39,7 +40,19 @@ const Table: React.FC<TableProps> = ({ data }) => {
             >
               {columns.map((column, colIndex) => (
                 <td key={colIndex} className="px-6 py-4 whitespace-nowrap">
-                  {row[column]}
+                  {Array.isArray(row[column])
+                    ? row[column].map(
+                        (
+                          item: { key: string; value: string },
+                          index: number
+                        ) => (
+                          <div key={index}>
+                            <span>{item.key}: </span>
+                            <span>{item.value}</span>
+                          </div>
+                        )
+                      )
+                    : row[column]}
                 </td>
               ))}
               <td>

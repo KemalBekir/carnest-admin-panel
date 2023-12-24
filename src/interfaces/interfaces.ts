@@ -21,13 +21,12 @@ export interface Car {
   seats: number;
   reserved: boolean;
   owner: string;
-  createdAt: string; // Timestamp for when the car was created
-  updatedAt: string; // Timestamp for when the car was last updated
+  createdAt: Date; // Timestamp for when the car was created
+  updatedAt: Date; // Timestamp for when the car was last updated
 }
 
 export interface User {
   username: string;
   email: string;
   role: "user" | "admin"; // Enumerated roles
-  hashedPassword: string;
 }

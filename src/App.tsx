@@ -5,6 +5,79 @@ import Navbar from "./components/Navbar/Navbar";
 import Table from "./components/Table/Table";
 import Login from "./components/Login/Login";
 import Register from "./components/Register/Register";
+import { getAllUsers } from "./servies/userService";
+import { useEffect } from "react";
+import { Car } from "./interfaces/interfaces";
+
+function generateRandomCar(): Omit<Car, "_id"> {
+  const randomDate = new Date();
+  const imageUrl = "https://example.com/image.png";
+
+  return {
+    createdAt: randomDate,
+    updatedAt: randomDate,
+    make: "Toyota",
+    model: "Corolla",
+    images: [{ _id: "image_id_1", url: imageUrl }],
+    price: 20000,
+    age: 3,
+    mileage: 50000,
+    fuelType: "Petrol",
+    location: "New York",
+    colour: "Red",
+    bodyType: "Sedan",
+    gearbox: "Automatic",
+    engineSize: "2.0L",
+    specification: ["Feature 1", "Feature 2"],
+    doors: 4,
+    seats: 5,
+    reserved: false,
+    owner: "user_id_123",
+  };
+}
+
+const mockCarData: Car[] = [];
+
+for (let i = 0; i < 5; i++) {
+  const carData = generateRandomCar();
+  mockCarData.push({
+    _id: `car_id_${i}`,
+    ...carData,
+  });
+}
+
+console.log(mockCarData);
+
+export default function App() {
+  useEffect(() => {
+    getAllUsers()
+      .then((result) => {
+        console.log(result);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
+
+  return (
+    <>
+      <div className="flex">
+        <div className="bg-gray-800 w-1/5 h-auto min-h-screen">
+          <Navbar />
+        </div>
+        <div className="flex-1">
+          <Hero />
+          <Routes>
+            <Route path="/" element={<Table data={mockData} />} />
+            <Route path="/cars" element={<Table data={mockCarData} />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+          </Routes>
+        </div>
+      </div>
+    </>
+  );
+}
 
 const mockData = [
   { userId: 1, username: "JohnDoe", email: "john@example.com", age: 30 },
@@ -28,23 +101,3 @@ const mockData = [
   { userId: 9, username: "SophiaGarcia", email: "sophia@example.com", age: 26 },
   { userId: 10, username: "LiamMartinez", email: "liam@example.com", age: 33 },
 ];
-
-export default function App() {
-  return (
-    <>
-      <div className="flex">
-        <div className="bg-gray-800 w-1/5 h-auto min-h-screen">
-          <Navbar />
-        </div>
-        <div className="flex-1">
-          <Hero />
-          <Routes>
-            <Route path="/dashboard" element={<Table data={mockData} />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
-          </Routes>
-        </div>
-      </div>
-    </>
-  );
-}

@@ -1,5 +1,14 @@
 const userUrl = `http://localhost:8000/users`;
 
+export async function getAllUsers() {
+  return fetch(`${userUrl}/`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  }).then((data) => data.json());
+}
+
 export async function loginUser({
   email,
   password,
