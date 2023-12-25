@@ -8,8 +8,9 @@ import Register from "./components/Register/Register";
 import { getAllUsers } from "./servies/userService";
 import { useEffect } from "react";
 import { Car } from "./interfaces/interfaces";
+import CarTable from "./components/CarTable/CarTable";
 
-function generateRandomCar(): Omit<Car, "_id"> {
+const generateRandomCar = (): Omit<Car, "_id"> => {
   const randomDate = new Date();
   const imageUrl = "https://example.com/image.png";
 
@@ -28,22 +29,26 @@ function generateRandomCar(): Omit<Car, "_id"> {
     bodyType: "Sedan",
     gearbox: "Automatic",
     engineSize: "2.0L",
-    specification: ["Feature 1", "Feature 2"],
+    specification: [
+      { key: "Feature 1", value: "Description for Feature 1" },
+      { key: "Feature 2", value: "Description for Feature 2" },
+    ],
     doors: 4,
     seats: 5,
     reserved: false,
     owner: "user_id_123",
   };
-}
+};
 
 const mockCarData: Car[] = [];
 
 for (let i = 0; i < 5; i++) {
   const carData = generateRandomCar();
-  mockCarData.push({
+  const mockCar: Omit<Car, "_id"> & { _id: string } = {
     _id: `car_id_${i}`,
     ...carData,
-  });
+  };
+  mockCarData.push(mockCar as Car);
 }
 
 console.log(mockCarData);
@@ -69,7 +74,7 @@ export default function App() {
           <Hero />
           <Routes>
             <Route path="/" element={<Table data={mockData} />} />
-            <Route path="/cars" element={<Table data={mockCarData} />} />
+            <Route path="/cars" element={<CarTable data={mockCarData} />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
           </Routes>

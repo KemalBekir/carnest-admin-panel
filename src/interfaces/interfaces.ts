@@ -1,12 +1,8 @@
 export interface Car {
-  _id: string; // Assuming this is the unique identifier for a car
+  _id: string;
   make: string;
   model: string;
-  images: Array<{
-    _id: string; // Assuming this is the unique identifier for an image
-    url: string; // URL of the image
-    // altText: string; // Alternative text for the image
-  }>;
+  images: Array<{ _id: string; url: string }>; // Updated images type
   price: number;
   age: number;
   mileage: number;
@@ -16,13 +12,13 @@ export interface Car {
   bodyType: string;
   gearbox: string;
   engineSize: string;
-  specification: Array<string>; // Array of strings for features
+  specification: Array<{ key: string; value: string }>; // Updated specification type
   doors: number;
   seats: number;
   reserved: boolean;
   owner: string;
-  createdAt: Date; // Timestamp for when the car was created
-  updatedAt: Date; // Timestamp for when the car was last updated
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 export interface User {
