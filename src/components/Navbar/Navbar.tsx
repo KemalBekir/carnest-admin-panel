@@ -28,6 +28,9 @@ const Navbar: React.FC = () => {
           <li className="px-8 py-2 text-white cursor">
             <Link to="/cars">Cars</Link>
           </li>
+          <li className="px-8 py-2 text-white cursor">
+            <Link to="/create">Create</Link>
+          </li>
         </ul>
       </div>
 

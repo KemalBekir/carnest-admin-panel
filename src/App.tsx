@@ -5,10 +5,11 @@ import Navbar from "./components/Navbar/Navbar";
 import Table from "./components/Table/Table";
 import Login from "./components/Login/Login";
 import Register from "./components/Register/Register";
-import { getAllUsers } from "./servies/userService";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Car } from "./interfaces/interfaces";
 import CarTable from "./components/CarTable/CarTable";
+import { getAllCars } from "./servies/catalogService";
+import CarForm from "./components/CarForm/CarForm";
 
 const generateRandomCar = (): Omit<Car, "_id"> => {
   const randomDate = new Date();
@@ -54,15 +55,7 @@ for (let i = 0; i < 5; i++) {
 console.log(mockCarData);
 
 export default function App() {
-  useEffect(() => {
-    getAllUsers()
-      .then((result) => {
-        console.log(result);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, []);
+  const [data, setData] = useState();
 
   return (
     <>
@@ -77,6 +70,7 @@ export default function App() {
             <Route path="/cars" element={<CarTable data={mockCarData} />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
+            <Route path="/create" element={<CarForm />} />
           </Routes>
         </div>
       </div>

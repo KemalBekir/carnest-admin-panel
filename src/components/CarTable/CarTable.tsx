@@ -1,22 +1,10 @@
 import React, { useState } from "react";
 
 interface Car {
+  _id: string; // Include _id field
   make: string;
   model: string;
   price: number;
-  age: number;
-  mileage: number;
-  fuelType: string;
-  location: string;
-  colour: string;
-  bodyType: string;
-  gearbox: string;
-  engineSize: string;
-  specification: Array<{ key: string; value: string }>;
-  doors: number;
-  seats: number;
-  reserved: boolean;
-  owner: string;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -35,12 +23,21 @@ const CarTable: React.FC<TableProps> = ({ data }) => {
     });
   };
 
+  const columnsToDisplay = [
+    "_id",
+    "make",
+    "model",
+    "price",
+    "createdAt",
+    "updatedAt",
+  ]; 
+
   return (
     <div className="m-4">
       <table className="min-w-full divide-y divide-gray-200 p-4 border border-slate-300 rounded-lg">
         <thead className="bg-gray-50">
           <tr>
-            {Object.keys(data[0]).map((column, index) => (
+            {columnsToDisplay.map((column, index) => (
               <th
                 key={index}
                 className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
@@ -57,26 +54,20 @@ const CarTable: React.FC<TableProps> = ({ data }) => {
               key={rowIndex}
               className={rowIndex % 2 === 0 ? "bg-gray-50" : "bg-white"}
             >
-              {/* Columns */}
-              {Object.entries(row).map(([key, value], colIndex) => (
+              {columnsToDisplay.map((column, colIndex) => (
                 <td key={colIndex} className="px-6 py-4 whitespace-nowrap">
-                  {Array.isArray(value)
-                    ? value.map(
-                        (item: { key: string; value: string }, idx: number) => (
-                          <div key={idx}>
-                            <span>{item.key}: </span>
-                            <span>{item.value}</span>
-                          </div>
-                        )
-                      )
-                    : key === "createdAt" || key === "updatedAt"
-                    ? // Convert Date objects to strings
-                      String(value)
-                    : // Render other non-Date values
-                      value}
+                  {column === "createdAt" || column === "updatedAt"
+                    ? new Date(row[column] as any).toLocaleString("en-GB", {
+                        day: "2-digit",
+                        month: "2-digit",
+                        year: "numeric",
+                        hour: "2-digit",
+                        minute: "2-digit",
+                        second: "2-digit",
+                      })
+                    : (row as any)[column]}
                 </td>
               ))}
-              {/* Checkbox cell */}
               <td>
                 <input
                   type="checkbox"

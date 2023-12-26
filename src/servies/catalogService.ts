@@ -1,6 +1,6 @@
 const catalogUrl = `http://localhost:8000/catalog`;
 
-export async function getAll() {
+export async function getAllCars() {
   return fetch(`${catalogUrl}/`, {
     method: "GET",
     headers: {
